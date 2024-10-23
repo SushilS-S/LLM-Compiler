@@ -1,0 +1,51 @@
+﻿Query: "How many active visitors did my website receive last month?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["activeUsers"])
+respond_tool(reply="Last month, your website received:", query="How many active visitors did my website receive last month?", ga_result="${1}")
+
+Query: "What are the top 10 pages by page views?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["screenPageViews"], dimensions=["pagePath"], order_bys=[{"metric": "screenPageViews", "desc": true}])
+respond_tool(reply="Here are your top 10 pages by page views:", query="What are the top 10 pages by page views?", ga_result="${1}")
+
+Query: "What is the average session duration on my website?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["averageSessionDuration"])
+respond_tool(reply="The average session duration on your website is:", query="What is the average session duration on my website?", ga_result="${1}")
+
+Query: "What is the bounce rate for my homepage?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["bounceRate"], dimensions=["pagePath"], dimensional_filter={"filter": {"fieldName": "pagePath", "stringFilter": {"matchType": "EXACT", "value": "/"}}})
+respond_tool(reply="The bounce rate for your homepage is:", query="What is the bounce rate for my homepage?", ga_result="${1}")
+
+Query: "How many new visitors compared to returning visitors?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["newUsers", "totalUsers"], dimensions=["newVsReturning"], dimensional_filter={"filter": {"fieldName": "newVsReturning", "inListFilter": {"values": ["new", "returning"]}}})
+respond_tool(reply="Here's the breakdown of new vs returning visitors:", query="How many new visitors compared to returning visitors?", ga_result="${1}")
+
+Query: "Which products are selling the most?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["itemsPurchased"], dimensions=["itemName"], order_bys=[{"metric": "itemsPurchased", "desc": true}])
+respond_tool(reply="Here are your top-selling products:", query="Which products are selling the most?", ga_result="${1}")
+
+Query: "What is the total revenue generated in the last quarter?"
+Task Generated:
+ga-tool(date_ranges=[{"start_date": "2024-07-01", "end_date": "2024-09-30"}], metrics=["totalRevenue"])
+respond_tool(reply="The total revenue generated in the last quarter was:", query="What is the total revenue generated in the last quarter?", ga_result="${1}")
+
+Query: "What are the top interests of my website visitors?"
+Task Generated:
+ga-tool(date_ranges="lastMonth", metrics=["totalUsers"], dimensions=["brandingInterest"], order_bys=[{"metric": "totalUsers", "desc": true}])
+respond_tool(reply="Here are the top interests of your website visitors:", query="What are the top interests of my website visitors?", ga_result="${1}")
+
+Query: "How many total visitors did my website receive last month compared to the previous month?"
+Task Generated:
+ga-tool(date_ranges=[{"start_date": "2024-09-01", "end_date": "2024-09-30"}], metrics=["totalUsers"])
+ga-tool(date_ranges=[{"start_date": "2024-08-01", "end_date": "2024-08-31"}], metrics=["totalUsers"])
+respond_tool(reply="Comparing visitor numbers between the last two months:", query="How many total visitors did my website receive last month compared to the previous month?", ga_result={"last_month": "${1}", "previous_month": "${2}"})
+
+Query: "How many new visitors compared to returning visitors this year compared to last year?"
+Task Generated:
+ga-tool(date_ranges=[{"start_date": "2024-01-01", "end_date": "2024-10-23"}], metrics=["newUsers", "totalUsers"], dimensions=["newVsReturning"], dimensional_filter={"filter": {"fieldName": "newVsReturning", "inListFilter": {"values": ["new", "returning"]}}})
+ga-tool(date_ranges=[{"start_date": "2023-01-01", "end_date": "2023-12-31"}], metrics=["newUsers", "totalUsers"], dimensions=["newVsReturning"], dimensional_filter={"filter": {"fieldName": "newVsReturning", "inListFilter": {"values": ["new", "returning"]}}})
+respond_tool(reply="Here's the comparison of new vs returning visitors between this year and last year:", query="How many new visitors compared to returning visitors this year compared to last year?", ga_result={"current_year": "${1}", "previous_year": "${2}"})
